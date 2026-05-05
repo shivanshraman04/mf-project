@@ -14,7 +14,18 @@ import matplotlib.pyplot as plt
 import statsmodels.api as sm
 from matplotlib.ticker import FuncFormatter
 
-from src.config import AUM_PANEL_FILE, FACTOR_FILE
+from pathlib import Path
+
+# Resolve data paths relative to this file's location
+# Works locally and on Streamlit Cloud
+APP_DIR     = Path(__file__).resolve().parent        # dashboards/
+PROJECT_DIR = APP_DIR.parent                          # project root
+DATA_DIR    = PROJECT_DIR / "data" / "processed"
+RAW_DIR     = PROJECT_DIR / "data" / "raw"
+
+AUM_PANEL_FILE = str(DATA_DIR / "monthly_panel_with_aum.parquet")
+FACTOR_FILE    = str(RAW_DIR  / "india_ff_momentum_monthly.csv")
+
 from src.analysis import load_factors
 
 # ── page config ───────────────────────────────────────────────────────────────
