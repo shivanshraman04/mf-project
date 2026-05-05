@@ -133,6 +133,13 @@ MIN_FUNDS_PER_DECILE = 5
 
 from pathlib import Path
 
+# Works both locally and on Streamlit Cloud
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
+# Verify the path exists, if not try the Streamlit Cloud path
+if not (PROJECT_ROOT / "data").exists():
+    PROJECT_ROOT = Path("/mount/src/mf-project")
+
 PROJECT_ROOT = Path('/Users/shivanshraman/mf-project')
 
 RAW_DATA_DIR       = str(PROJECT_ROOT / "data" / "raw")
