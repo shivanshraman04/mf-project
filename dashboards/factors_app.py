@@ -7,6 +7,15 @@ import sys
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+from pathlib import Path
+APP_DIR     = Path(__file__).resolve().parent
+PROJECT_DIR = APP_DIR.parent
+DATA_DIR    = PROJECT_DIR / "data" / "processed"
+RAW_DIR     = PROJECT_DIR / "data" / "raw"
+
+AUM_PANEL_FILE = str(DATA_DIR / "monthly_panel_with_aum.parquet")
+FACTOR_FILE    = str(RAW_DIR  / "india_ff_momentum_monthly.csv")
+
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -15,16 +24,7 @@ import seaborn as sns
 import statsmodels.api as sm
 from matplotlib.ticker import FuncFormatter
 
-from src.config import AUM_PANEL_FILE, FACTOR_FILE
 from src.analysis import load_factors
-
-# ── page config ───────────────────────────────────────────────────────────────
-st.set_page_config(
-    page_title='Factor Dashboard',
-    page_icon='🔬',
-    layout='wide',
-)
-
 # ── load data ─────────────────────────────────────────────────────────────────
 @st.cache_data
 def load_data():
